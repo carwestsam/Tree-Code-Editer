@@ -41,7 +41,7 @@
 
         .block {
             display: inline-block;
-            background-color: rgba(255, 0, 255, .1);
+            background-color: rgba(255, 0, 255, .05);
         }
         .block::before{
           content:"(";
@@ -69,7 +69,7 @@
 -->
     <textarea id="textarea" type="text" onchange="func()" onkeyup="func()"></textarea>
     <div id="output"></div>
-    <script>
+<script>
 
 
 var KEY_MAPS = {
@@ -98,12 +98,14 @@ function parse(inputStr){
   }
   return Stack[0];
 }
-function func() {
-    var ans = parse($("#textarea").val());
 
-    $("#output").html(ans);
+function func() {
+  var ans = parse($("#textarea").val());
+  $("#output").html(ans);
 }
-    </script>
+
+
+</script>
 </body>
 
 </html>
