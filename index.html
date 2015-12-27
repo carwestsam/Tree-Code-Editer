@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>React Tutorial</title>
     <script src="bower_components/react/react.min.js"></script>
@@ -8,11 +9,101 @@
     <script src="bower_components/babel/browser.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/marked/lib/marked.js"></script>
-  </head>
-  <body>
-    <div id="content"></div>
-    <script type="text/babel" src="scripts/main.js"></script>
-    <script type="text/babel">
+</head>
+
+<body>
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        body,
+        div,
+        textarea,
+        span {
+            padding: 0;
+            margin: 0;
+            font-family: monospace;
+        }
+
+        body {
+            font-size: 20px;
+        }
+
+        #inputGround {
+            display: block;
+            width: 60em;
+            height: 30em;
+            background-color: antiquewhite;
+        }
+
+        .block {
+            display: inline-block;
+            background-color: rgba(255, 0, 255, .1);
+        }
+        .block::before{
+          content:"(";
+        }
+        .block::after{
+          content:")";
+        }
+        #textarea{
+          width: 20em;
+          height: 10em;
+        }
+    </style>
+    <!--
+    <div id="inputGround">
+        <div class="block">
+            (define process-last-frame
+            <div class="block">
+                (lambda (strikes)
+                <div class="block">(apply + strikes)</div>
+                )
+            </div>
+            )
+        </div>
+    </div>
+-->
+    <textarea id="textarea" type="text" onchange="func()" onkeyup="func()"></textarea>
+    <div id="output"></div>
+    <script>
+
+
+var KEY_MAPS = {
+  "BRACKET_LEFT" : "(",
+  "BRACKET_RIGHT" : ")"
+};
+
+function parse(inputStr){
+  var Stack = [""];
+  var StackIdx = 0;
+  for (var i=0; i<inputStr.length; i++){
+    var ch = inputStr[i];
+    if (ch == KEY_MAPS.BRACKET_LEFT){
+      StackIdx += 1;
+      Stack[StackIdx] = "";
+    }else if (ch == KEY_MAPS.BRACKET_RIGHT){
+      Stack[StackIdx-1] += $('<div>').addClass('block').html(Stack[StackIdx]).prop("outerHTML");
+      StackIdx -= 1;
+    }else {
+      Stack[StackIdx] += ch;
+    }
+  }
+  while (StackIdx > 0){
+    Stack[StackIdx-1] += $('<div>').addClass('block').html(Stack[StackIdx]).prop("outerHTML");
+    StackIdx -= 1;
+  }
+  return Stack[0];
+}
+function func() {
+    var ans = parse($("#textarea").val());
+
+    $("#output").html(ans);
+}
     </script>
-  </body>
+</body>
+
 </html>
