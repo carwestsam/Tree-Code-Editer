@@ -21,3 +21,10 @@ exports.shouldParseIdentify = function(test){
   test.deepEqual( lex.parseId("\tkeyword"), null, "no tabular");
   test.done();
 }
+
+exports.shouldParseBrackets = function(test){
+  test.deepEqual( lex.parseBrackets("( 21)"), {"type":"Bracket", "value":"("}, "parse Left Bracket" );
+  test.deepEqual( lex.parseBrackets(") fe"), {"type":"Bracket", "value":")"}, "parse Left Bracket" );
+  test.deepEqual( lex.parseBrackets("(cons)"), {"type":"Bracket", "value":"("}, "parse Left Bracket" );
+  test.done();
+}

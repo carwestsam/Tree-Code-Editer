@@ -4,6 +4,9 @@ var Tokens = {
     },
     "Id": {
       "pattern": "[^ ()\\t\\f\\n\\r\\v]+"
+    },
+    "Bracket":{
+      "pattern": "[()]"
     }
 }
 
@@ -27,5 +30,16 @@ var parseId = function(str){
   }
 }
 
+var parseBrackets = function(str){
+  var reg = new RegExp("^" + Tokens["Bracket"].pattern);
+  var ans = str.match(reg);
+  if ( ans == null){
+    return null;
+  }else {
+    return {"type":"Bracket", "value": ans[0]};
+  }
+}
+
 exports.parseNum = parseNum;
 exports.parseId = parseId;
+exports.parseBrackets = parseBrackets;
