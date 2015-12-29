@@ -10,35 +10,27 @@ var Tokens = {
     }
 }
 
-var parseNum = function(str){
-  var reg = new RegExp("^" + Tokens["Num"].pattern);
-  var ans = str.match(reg)
-  if ( ans == null){
+var parseToken = function(type, str){
+  var reg = new RegExp("^" + Tokens[type].pattern);
+  var ans = str.match(reg);
+  if( ans == null ){
     return null;
   }else {
-    return {"type": "Num" , "value" : ans[0]};
+    return {"type": type, "value": ans[0]};
   }
-}
+};
+
+var parseNum = function(str){
+  return parseToken("Num", str);
+};
 
 var parseId = function(str){
-  var reg = new RegExp("^" + Tokens["Id"].pattern);
-  var ans = str.match(reg);
-  if ( ans == null){
-    return null;
-  }else {
-    return {"type":"Id", "value" : ans[0]};
-  }
-}
+  return parseToken("Id", str);
+};
 
 var parseBrackets = function(str){
-  var reg = new RegExp("^" + Tokens["Bracket"].pattern);
-  var ans = str.match(reg);
-  if ( ans == null){
-    return null;
-  }else {
-    return {"type":"Bracket", "value": ans[0]};
-  }
-}
+  return parseToken("Bracket", str);
+};
 
 exports.parseNum = parseNum;
 exports.parseId = parseId;
